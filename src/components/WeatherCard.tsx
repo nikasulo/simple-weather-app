@@ -27,7 +27,10 @@ const styles = () => createStyles({
   weatherCard: {
     padding: "10px",
     width: '32%',
-    boxSizing: 'border-box'
+    boxSizing: 'border-box',
+    '&:hover': {
+      cursor: 'pointer'
+    }
   },
   
   weatherCardsContainer: {
