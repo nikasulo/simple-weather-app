@@ -1,14 +1,19 @@
+import { MouseEvent } from 'react';
+import { useSelector } from 'react-redux';
+import cx from 'classnames'
+
+import { Weather } from 'types';
+
+import { useResponsiveChecks } from 'hooks';
 import { convertTemperature, dateToHumanWords, getResponsiveCardWidths } from 'utils';
+
 import WbSunnyRoundedIcon from '@material-ui/icons/WbSunnyRounded';
 import FlareRoundedIcon from '@material-ui/icons/FlareRounded';
 import Brightness3RoundedIcon from '@material-ui/icons/Brightness3Rounded';
-import { Card, CardContent, createStyles, Box, Typography, withStyles } from '@material-ui/core';
+
 import { blue, yellow } from '@material-ui/core/colors';
 import { grey } from '@material-ui/core/colors';
-import { Weather } from 'types';
-import { useSelector } from 'react-redux';
-import { MouseEvent } from 'react';
-import { useResponsiveChecks } from 'hooks';
+import { Card, CardContent, createStyles, Box, Typography, withStyles } from '@material-ui/core';
 
 const styles = () => createStyles({
   weatherHolder: {
@@ -42,20 +47,24 @@ const styles = () => createStyles({
     justifyContent: 'center',
     alignItems: 'center'
   },
+
+  selected: {
+    backgroundColor: grey[50]
+  }
 })
 
-interface Props { data: Weather, classes: {[key: string]: string}, onClick: (e: MouseEvent<HTMLDivElement>) => void }
+interface Props { data: Weather, classes: {[key: string]: string}, onClick: (e: MouseEvent<HTMLDivElement>) => void, selected: boolean }
 
-const WeatherCard = ({ data, classes, onClick }: Props) => {
-  const temperatureUnit = useSelector((state: any) => state.temperatureUnit.unit)
+const WeatherCard = ({ data, classes, onClick, selected }: Props) => {
+
   const {
     phoneScreens,
     tabletScreens
   } = useResponsiveChecks()
-
+  const temperatureUnit = useSelector((state: any) => state.temperatureUnit.unit)
 
   return (
-    <Card onClick={onClick} key={data.dt} className={classes.weatherCard} style={{width: getResponsiveCardWidths(phoneScreens, tabletScreens)}}>
+    <Card onClick={onClick} key={data.dt} className={cx(classes.weatherCard, {[classes.selected]: selected})} style={{width: getResponsiveCardWidths(phoneScreens, tabletScreens)}}>
       <CardContent>
         <Box display="flex" flexDirection="column">
           <Box className={classes.weatherHolder}>

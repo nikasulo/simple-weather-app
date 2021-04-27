@@ -11,6 +11,16 @@ export interface TemperatureTimePair {
   }[];
 }
 
+export interface State {
+  temperatureUnit: {
+    unit: TemperatureUnit;
+};
+weatherData: {
+    weatherData: never[];
+    temperatureGroupedByDay: {};
+    loading: boolean
+};
+}
 
 export enum TemperatureUnit { 
   F = 'F',

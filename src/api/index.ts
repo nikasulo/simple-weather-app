@@ -8,8 +8,8 @@ const axiosInstance = axios.create({
 })
 
 export const getData = () => {
-  return axiosInstance.get(`${process.env.REACT_APP_DAILY_DATA_ENDPOINT}`).then(res => { 
-    store.dispatch(setHourlyData(groupHourlyDataByDay(res.data.hourly)))
+  return axiosInstance.get(`${process.env.REACT_APP_DAILY_DATA_ENDPOINT}`).then(async (res) => { 
     store.dispatch(setWeatherData(res.data.daily))
+    store.dispatch(setHourlyData(groupHourlyDataByDay(res.data.hourly)))
   })
 }

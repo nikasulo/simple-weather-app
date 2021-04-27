@@ -1,27 +1,28 @@
 
-import { getData } from 'api';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+
+import { getData } from 'api';
 
 import './App.css';
 import 'fontsource-roboto/500.css';
 import "fontsource-roboto/900-italic.css"
-import { useSelector } from 'react-redux';
-import { Box, Container } from '@material-ui/core';
-import { Weather } from 'types';
-import WeatherCard from 'components/WeatherCard'
-import CardControls from 'components/CardControls'
-import { dayOfYear, outOfRange } from 'utils';
-import TemperatureControls from 'components/TemperatureControls';
 
-import Chart, {
-  Series,
-  Legend
-} from 'devextreme-react/chart';
+
+import CardControls from 'components/CardControls'
+import WeatherCardList from 'components/WeatherCardList'
+import TemperatureControls from 'components/TemperatureControls';
+import BarChart from 'components/BarChart';
+
+import { Container } from '@material-ui/core';
+
+
 import { useResponsiveChecks } from 'hooks';
+import { Typography } from '@material-ui/core';
 
 const App = () => {
-  const weatherData = useSelector((state: any) => state.weatherData.weatherData)
-  const temperatureGroupedByDay = useSelector((state: any) => state.weatherData.temperatureGroupedByDay)
+  const {weatherData} = useSelector((state: any) => state.weatherData)
+  const {loading} = useSelector((state: any) => state.weatherData)
   const [upperLimitOfCards, setUpperLimitOfCards] = useState(3)
   const [currentStartIndex, setCurrentStartIndex] = useState(0)
   const [selectedIndex, setSelectedIndex] = useState(0)
@@ -59,33 +60,18 @@ const App = () => {
     setSelectedIndex(index)
   }
 
+  if (loading) return (
+    <Container style={{height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}} maxWidth={'md'} >
+      <Typography>Loading...</Typography>
+    </Container>
+  )
+
   return (
     <Container maxWidth={'md'} >
       <TemperatureControls />
-      <CardControls handleLeftArrow={handleLeftArrow} handleRightArrow={handleRightArrow} currentStartIndex={currentStartIndex}/>
-      <Box display="flex" flexDirection="row" style={{justifyContent: 'space-around'}}>
-        {
-          weatherData.map((data: Weather, index: number) => {
-            if (outOfRange(index, currentStartIndex, weatherData.length, upperLimitOfCards)) return null
-            
-            return (
-              <WeatherCard onClick={() => handleClick(index)} data={data}/>
-            )
-          })
-        }
-      </Box>
-      <Box style={{margin: '50px 0'}}>
-        {!phoneScreens && (weatherData[selectedIndex] 
-          && temperatureGroupedByDay[dayOfYear(weatherData[selectedIndex]?.dt)] ? 
-          <Chart dataSource={temperatureGroupedByDay[dayOfYear(weatherData[selectedIndex]?.dt)]}>
-              <Series type="bar" />
-              <Legend visible={false} />
-          </Chart> : <Chart dataSource={{}}>
-              <Series type="bar" />
-              <Legend visible={false} />
-          </Chart>
-        )}
-      </Box>
+      <CardControls handleLeftArrow={handleLeftArrow} handleRightArrow={handleRightArrow} dataSetSize={weatherData.length} currentStartIndex={currentStartIndex}/>
+      <WeatherCardList currentStartIndex={currentStartIndex} selectedIndex={selectedIndex} upperLimitOfCards={upperLimitOfCards} handleClick={handleClick}  />
+      <BarChart selectedIndex={selectedIndex}/>
     </Container>
   )
 }

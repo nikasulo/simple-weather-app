@@ -2,8 +2,8 @@ import { TemperatureTimePair, TemperatureUnit } from 'types';
 import moment from 'moment';
 
 export const convertEpochToDate = (epochTime: number) => {
-  if (moment(epochTime * 1000).diff(moment()) < 0) return 'Today'
-  if (moment(epochTime * 1000).startOf('day').isSame((moment().add(1, 'days').startOf('day')))) return 'Tomorrow'
+  if (moment(epochTime * 1000).dayOfYear() === moment().dayOfYear()) return 'Today'
+  if (moment(epochTime * 1000).dayOfYear() === moment().add(1, 'days').dayOfYear()) return 'Tomorrow'
   return moment(epochTime * 1000).format("MMM Do YY");
 }
 

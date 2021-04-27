@@ -1,6 +1,6 @@
-import { ReduxActionTypes, TemperatureTimePair, TemperatureUnit } from "types";
+import { ReduxActionTypes, TemperatureTimePair, TemperatureUnit, Weather } from "types";
 
-export const setWeatherData = (data: any) => ({
+export const setWeatherData = (data: Weather[]) => ({
   type: ReduxActionTypes.SET_WEATHER_DATA,
   payload: {
     data
