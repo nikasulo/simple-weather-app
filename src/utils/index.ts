@@ -120,3 +120,16 @@ export const groupHourlyDataByDay = (
 
   return groupedDataHash;
 };
+
+export const computeBarCharTemperatures = (data: {arg: string, val: number}[], unit: TemperatureUnit) => {
+  if(unit === TemperatureUnit.F) return data
+
+  const celciusData: {arg: string, val: number}[] = []
+
+  data.forEach(dataset => {
+    const temp = convertTemperatureRaw(TemperatureUnit.C, dataset.val)
+    celciusData.push({val: temp, arg: dataset.arg})
+  })
+
+  return celciusData
+}

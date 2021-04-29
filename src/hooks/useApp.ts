@@ -28,17 +28,13 @@ export const useApp = (weatherDataLength: number) => {
   };
 
   useEffect(() => {
+    setCurrentStartIndex(0);
+
     if (phoneScreens) {
       setUpperLimitOfCards(1);
     } else if (tabletScreens) {
       setUpperLimitOfCards(2);
     } else {
-      if (
-        currentStartIndex + upperLimitOfCards >= weatherDataLength &&
-        !loading
-      ) {
-        setCurrentStartIndex(weatherDataLength - upperLimitOfCards - 1);
-      }
       setUpperLimitOfCards(3);
     }
   }, [phoneScreens, tabletScreens, loading, upperLimitOfCards, weatherDataLength]);
