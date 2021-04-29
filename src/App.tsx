@@ -28,7 +28,7 @@ const App = () => {
     handleLeftArrow,
     handleCardSelection,
     loading,
-  } = useApp(weatherData.length);
+  } = useApp(weatherData?.length);
 
   useEffect(() => {
     getData();

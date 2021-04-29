@@ -49,6 +49,12 @@
       "last 1 safari version"
     ]
   },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "src/index.tsx",
+      "src/reportWebVitals.js"
+    ]
+  },
   "devDependencies": {
     "@testing-library/react-hooks": "^5.1.2",
     "husky": ">=6",

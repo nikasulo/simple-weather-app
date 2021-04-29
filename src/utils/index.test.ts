@@ -78,6 +78,24 @@ describe("Utils", () => {
     });
   });
 
+  describe("computeBarCharTemperatures", () => {
+    const data = [{
+      arg: 'arg',
+      val: 200
+    }]
+    it("computes celcius temperatures", () => {
+      const results = Utils.computeBarCharTemperatures(data, TemperatureUnit.C);
+
+      expect(results).toEqual([{"arg": "arg", "val": 93}]);
+    });
+
+    it("returns fahernheit temperatures as a default", () => {
+      const results = Utils.computeBarCharTemperatures(data, TemperatureUnit.C);
+
+      expect(results).toEqual([{"arg": "arg", "val": 93}]);
+    });
+  });
+
   describe("convert temperature", () => {
     it("returns celcius when unit is celcius", () => {
       const groupedData = {
