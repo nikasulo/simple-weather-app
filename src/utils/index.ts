@@ -2,30 +2,28 @@ import { TemperatureTimePair, TemperatureUnit } from "types";
 import moment from "moment";
 
 export const isToday = (epochTime: number) => {
-  const today = new Date()
-  const date = new Date(epochTime * 1000)
+  const today = new Date();
+  const date = new Date(epochTime * 1000);
   return (
-    today.getFullYear() === date.getFullYear()
-    && today.getMonth() === date.getMonth()
-    && today.getDate() === date.getDate()
-  )
-}
+    today.getFullYear() === date.getFullYear() &&
+    today.getMonth() === date.getMonth() &&
+    today.getDate() === date.getDate()
+  );
+};
 
 export const isTomorrow = (epochTime: number) => {
-  const today = new Date()
-  const date = new Date(epochTime * 1000)
+  const today = new Date();
+  const date = new Date(epochTime * 1000);
   return (
-    today.getFullYear() === date.getFullYear()
-    && today.getMonth() === date.getMonth()
-    && today.getDate() + 1 === date.getDate()
-  )
-}
+    today.getFullYear() === date.getFullYear() &&
+    today.getMonth() === date.getMonth() &&
+    today.getDate() + 1 === date.getDate()
+  );
+};
 
 export const convertEpochToDate = (epochTime: number) => {
-  if (isToday(epochTime))
-    return "Today"
-  if (isTomorrow(epochTime))
-    return "Tomorrow"
+  if (isToday(epochTime)) return "Today";
+  if (isTomorrow(epochTime)) return "Tomorrow";
   return moment(epochTime * 1000).format("MMM Do YY");
 };
 

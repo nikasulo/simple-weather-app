@@ -27,12 +27,11 @@ const App = () => {
     handleRightArrow,
     handleLeftArrow,
     handleCardSelection,
-    loading
-  } = useApp(weatherData.length)
+    loading,
+  } = useApp(weatherData.length);
 
   useEffect(() => {
     getData();
-
   }, []);
 
   if (loading)

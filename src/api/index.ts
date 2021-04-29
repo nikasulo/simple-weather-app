@@ -13,13 +13,7 @@ export const getData = () => {
     .then(async (res) => {
       const { daily, hourly } = res.data;
       store.dispatch(setWeatherData(daily));
-     
+
       store.dispatch(setHourlyData(groupHourlyDataByDay(hourly)));
     });
-  };
-
-
-
-
-
-
+};

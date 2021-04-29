@@ -1,114 +1,107 @@
-import { act } from '@testing-library/react-hooks';
-import * as Hooks from 'hooks';
-import {useApp} from 'hooks/useApp';
-import { renderHook, waitFor } from 'test/utils';
+import { act } from "@testing-library/react-hooks";
+import * as Hooks from "hooks";
+import { useApp } from "hooks/useApp";
+import { renderHook, waitFor } from "test/utils";
 
-jest.mock("@material-ui/core")
+jest.mock("@material-ui/core");
 
-describe('useApp hook', () => {
-  describe('handleCardSelection', () => {
-    it('sets selected index', () => {
-      
-      const { result } = renderHook<useApp>(() => useApp(9))
+describe("useApp hook", () => {
+  describe("handleCardSelection", () => {
+    it("sets selected index", () => {
+      const { result } = renderHook<useApp>(() => useApp(9));
       act(() => {
-        result.current.handleCardSelection(2)
-      })
-      
-      expect(result.current.selectedIndex).toBe(2)
-    })
-  })
-  
-  describe('handleRightArrow', () => {
-    it('increments the currentStartIndex', () => {
-      
-      const { result } = renderHook<useApp>(() => useApp(9))
-      const oldStartIndex = result.current.currentStartIndex
+        result.current.handleCardSelection(2);
+      });
+
+      expect(result.current.selectedIndex).toBe(2);
+    });
+  });
+
+  describe("handleRightArrow", () => {
+    it("increments the currentStartIndex", () => {
+      const { result } = renderHook<useApp>(() => useApp(9));
+      const oldStartIndex = result.current.currentStartIndex;
       act(() => {
-        result.current.handleRightArrow()
-      })
-      
-      expect(result.current.currentStartIndex).toBe(oldStartIndex + 1)
-    })
-    
-    it('does not increment if we are at the end of the data list', () => {
-      
-      const { result } = renderHook<useApp>(() => useApp(1))
-      
-      const oldStartIndex = result.current.currentStartIndex
-      
+        result.current.handleRightArrow();
+      });
+
+      expect(result.current.currentStartIndex).toBe(oldStartIndex + 1);
+    });
+
+    it("does not increment if we are at the end of the data list", () => {
+      const { result } = renderHook<useApp>(() => useApp(1));
+
+      const oldStartIndex = result.current.currentStartIndex;
+
       act(() => {
-        result.current.handleRightArrow()
-      })
-      
-      expect(result.current.currentStartIndex).toBe(oldStartIndex)
-    })
-  })
-  
-  describe('handleLeftArrow', () => {
-    it('decrements the currentStartIndex', () => {
-      
-      const { result } = renderHook<useApp>(() => useApp(9))
+        result.current.handleRightArrow();
+      });
+
+      expect(result.current.currentStartIndex).toBe(oldStartIndex);
+    });
+  });
+
+  describe("handleLeftArrow", () => {
+    it("decrements the currentStartIndex", () => {
+      const { result } = renderHook<useApp>(() => useApp(9));
       act(() => {
-        result.current.handleRightArrow()
-      })
-      const oldStartIndex = result.current.currentStartIndex
+        result.current.handleRightArrow();
+      });
+      const oldStartIndex = result.current.currentStartIndex;
       act(() => {
-        result.current.handleLeftArrow()
-      })
-      
-      expect(result.current.currentStartIndex).toBe(oldStartIndex - 1)
-    })
-    
-    it('does not increment if we are at the end of the data list', () => {
-      
-      const { result } = renderHook<useApp>(() => useApp(1))
-      
-      const oldStartIndex = result.current.currentStartIndex
-      
+        result.current.handleLeftArrow();
+      });
+
+      expect(result.current.currentStartIndex).toBe(oldStartIndex - 1);
+    });
+
+    it("does not increment if we are at the end of the data list", () => {
+      const { result } = renderHook<useApp>(() => useApp(1));
+
+      const oldStartIndex = result.current.currentStartIndex;
+
       act(() => {
-        result.current.handleLeftArrow()
-      })
-      
-      expect(result.current.currentStartIndex).toBe(oldStartIndex)
-    })
-  })
-  
-  describe('Responsiveness', () => {
+        result.current.handleLeftArrow();
+      });
+
+      expect(result.current.currentStartIndex).toBe(oldStartIndex);
+    });
+  });
+
+  describe("Responsiveness", () => {
     beforeEach(() => {
-      jest.unmock('hooks')
-    })
-    
-   
-      test('it responds to phone and tablet screens', async () => {
-        const { result, rerender } = renderHook<useApp>(() => useApp(9))
-  
-        expect(result.current.upperLimitOfCards).toBe(3)
-        
-        jest.spyOn(Hooks, 'useResponsiveChecks').mockImplementation(() => ({
-          phoneScreens: false,
-          tabletScreens: true
-        }));
-  
-        await waitFor(() => {
-          rerender()
-        })
-        await waitFor(() => {
-          expect(result.current.upperLimitOfCards).toBe(2)
-        })
+      jest.unmock("hooks");
+    });
 
-        jest.spyOn(Hooks, 'useResponsiveChecks').mockImplementation(() => ({
-          phoneScreens: true,
-          tabletScreens: false
-        }));
+    test("it responds to phone and tablet screens", async () => {
+      const { result, rerender } = renderHook<useApp>(() => useApp(9));
 
-        await waitFor(() => {
-          rerender()
-        })
+      expect(result.current.upperLimitOfCards).toBe(3);
 
-        await waitFor(() => {
-          expect(result.current.upperLimitOfCards).toBe(1)
-        })
-  
-      })
-  })
-})
+      jest.spyOn(Hooks, "useResponsiveChecks").mockImplementation(() => ({
+        phoneScreens: false,
+        tabletScreens: true,
+      }));
+
+      await waitFor(() => {
+        rerender();
+      });
+      await waitFor(() => {
+        expect(result.current.upperLimitOfCards).toBe(2);
+      });
+
+      jest.spyOn(Hooks, "useResponsiveChecks").mockImplementation(() => ({
+        phoneScreens: true,
+        tabletScreens: false,
+      }));
+
+      await waitFor(() => {
+        rerender();
+      });
+
+      await waitFor(() => {
+        expect(result.current.upperLimitOfCards).toBe(1);
+      });
+    });
+  });
+});

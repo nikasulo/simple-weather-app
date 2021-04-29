@@ -36,13 +36,17 @@ const customRender = (
 
 function cutomRenderHook<T>(callBack: any) {
   const Wrapper: FC = ({ children }): ReactElement => {
-    return <Provider store={createStore(rootReducer, INITIAL_STATE)}>{children}</Provider>;
+    return (
+      <Provider store={createStore(rootReducer, INITIAL_STATE)}>
+        {children}
+      </Provider>
+    );
   };
-  return renderHook<T, T>(callBack, {wrapper: Wrapper} )
+  return renderHook<T, T>(callBack, { wrapper: Wrapper });
 }
 
 export * from "@testing-library/react";
 
 export { customRender as render };
 
-export { cutomRenderHook as renderHook }
+export { cutomRenderHook as renderHook };

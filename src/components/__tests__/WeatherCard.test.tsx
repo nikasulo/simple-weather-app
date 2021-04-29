@@ -38,7 +38,10 @@ describe("Card controls", () => {
 
   it("shows the correct date for the weather data", () => {
     const onClick = jest.fn();
-    const convertEpochToDateSpy = jest.spyOn(WeatherUtils, "convertEpochToDate");
+    const convertEpochToDateSpy = jest.spyOn(
+      WeatherUtils,
+      "convertEpochToDate"
+    );
     const date = new Date(2010, 6, 26).getTime() / 1000;
     render(
       <WeatherCard

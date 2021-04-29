@@ -40,7 +40,7 @@ const TemperatureControls = () => {
             value={TemperatureUnit.F}
             control={<Radio />}
             label={TemperatureUnit.F}
-            style={{margin: 0}}
+            style={{ margin: 0 }}
           />
         </Box>
       </RadioGroup>

@@ -12,7 +12,7 @@ export interface useApp {
   setSelectedIndex: React.Dispatch<number>;
   handleCardSelection: (index: number) => void;
   loading: boolean;
-  phoneScreens: boolean
+  phoneScreens: boolean;
 }
 
 export const useApp = (weatherDataLength: number) => {
@@ -32,7 +32,10 @@ export const useApp = (weatherDataLength: number) => {
     } else if (tabletScreens) {
       setUpperLimitOfCards(2);
     } else {
-      if (currentStartIndex + upperLimitOfCards >= weatherDataLength && !loading) {
+      if (
+        currentStartIndex + upperLimitOfCards >= weatherDataLength &&
+        !loading
+      ) {
         setCurrentStartIndex(weatherDataLength - upperLimitOfCards - 1);
       }
       setUpperLimitOfCards(3);
@@ -59,6 +62,6 @@ export const useApp = (weatherDataLength: number) => {
     setSelectedIndex,
     handleCardSelection,
     phoneScreens,
-    loading
-  }
-}
+    loading,
+  };
+};

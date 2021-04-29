@@ -7,25 +7,25 @@ const CardControls = ({
   currentStartIndex,
   handleLeftArrow,
   handleRightArrow,
-  upperLimit
+  upperLimit,
 }: {
   dataSetSize: number;
   currentStartIndex: number;
   handleRightArrow: () => void;
   handleLeftArrow: () => void;
-  upperLimit: number
+  upperLimit: number;
 }) => {
   return (
     <Box
       display="flex"
       style={{ justifyContent: "space-between", marginBottom: "50px" }}
     >
-      <Container style={{padding: 0}}>
+      <Container style={{ padding: 0 }}>
         {currentStartIndex > 0 && (
           <ArrowBackIcon data-testid="left-arrow" onClick={handleLeftArrow} />
         )}
       </Container>
-      {(currentStartIndex + upperLimit < dataSetSize) && (
+      {currentStartIndex + upperLimit < dataSetSize && (
         <ArrowForwardIcon
           data-testid="right-arrow"
           onClick={handleRightArrow}
