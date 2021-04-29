@@ -1,5 +1,5 @@
 ## Introduction
-Perfect timing is a simple weather app that displays present and forecasted weather data
+Perfect timing is a simple weather app that displays present and forecasted weather data – [Live preview](https://dam-weather-forecast.herokuapp.com)
 
 ### Preview
 https://user-images.githubusercontent.com/22369973/116280391-83927c80-a780-11eb-992c-87748316c056.mp4
