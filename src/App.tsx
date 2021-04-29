@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { Typography, Container } from "@material-ui/core";
 
 import { getData } from "api";
-import { useResponsiveChecks } from "hooks";
 
 import "./App.css";
 import "fontsource-roboto/500.css";

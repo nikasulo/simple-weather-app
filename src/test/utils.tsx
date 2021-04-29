@@ -5,7 +5,6 @@ import { ReactElement } from "react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { rootReducer } from "redux/reducers";
-import store from "redux/store/store";
 import { State, TemperatureUnit } from "types";
 
 const INITIAL_STATE = {
@@ -13,8 +12,8 @@ const INITIAL_STATE = {
     unit: TemperatureUnit.F,
   },
   weatherData: {
-    weatherData: [],
-    temperatureGroupedByDay: {},
+    weatherData: [{dt: 100, temp: {morn: 600, day: 900, night: 650}}],
+    temperatureGroupedByDay: {1: [{arg: '90', val: 70}]},
     loading: true,
   },
 };

@@ -1,8 +1,9 @@
 import { useResponsiveChecks } from "hooks";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { State } from "types";
 
-export interface useApp {
+export interface useAppObject {
   currentStartIndex: number;
   selectedIndex: number;
   upperLimitOfCards: number;
@@ -20,7 +21,7 @@ export const useApp = (weatherDataLength: number) => {
   const [currentStartIndex, setCurrentStartIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { phoneScreens, tabletScreens } = useResponsiveChecks();
-  const loading = useSelector((state: any) => state.weatherData.loading);
+  const loading = useSelector((state: State) => state.weatherData.loading);
 
   const handleCardSelection = (index: number) => {
     setSelectedIndex(index);
@@ -40,7 +41,7 @@ export const useApp = (weatherDataLength: number) => {
       }
       setUpperLimitOfCards(3);
     }
-  }, [phoneScreens, tabletScreens]);
+  }, [phoneScreens, tabletScreens, loading, upperLimitOfCards, weatherDataLength]);
 
   const handleRightArrow = () => {
     if (currentStartIndex + upperLimitOfCards >= weatherDataLength) return;

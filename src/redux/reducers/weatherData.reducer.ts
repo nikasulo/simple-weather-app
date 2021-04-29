@@ -6,7 +6,7 @@ interface Action {
 }
 
 export const weatherData = (
-  state = { weatherData: [], temperatureGroupedByDay: {}, loading: true },
+  state = { weatherData: [{dt: 100, temp: {morn: 600, day: 900, night: 650}}], temperatureGroupedByDay: {}, loading: true },
   action: Action
 ) => {
   switch (action.type) {

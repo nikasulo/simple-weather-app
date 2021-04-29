@@ -11,13 +11,14 @@ export interface TemperatureTimePair {
   }[];
 }
 
+export type TemperatureGroupedByDay = {[key: number]: {arg: number, val: number}}
 export interface State {
   temperatureUnit: {
     unit: TemperatureUnit;
   };
   weatherData: {
-    weatherData: never[];
-    temperatureGroupedByDay: {};
+    weatherData: Weather[];
+    temperatureGroupedByDay: TemperatureTimePair;
     loading: boolean;
   };
 }

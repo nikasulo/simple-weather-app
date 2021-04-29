@@ -1,16 +1,34 @@
 import { Box } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import Chart, { Series, Legend } from "devextreme-react/chart";
-import { dayOfYear } from "utils";
+import { convertTemperature, convertTemperatureRaw, dayOfYear } from "utils";
 import { useResponsiveChecks } from "hooks";
 import { blue } from "@material-ui/core/colors";
+import { State, TemperatureGroupedByDay, TemperatureUnit } from "types";
+import { DataSourceOptions } from "devextreme/data/data_source";
+
+const computeBarCharTemperatures = (data: {arg: string, val: number}[], unit: TemperatureUnit) => {
+  if(unit === TemperatureUnit.F) return data
+
+  const celciusData: {arg: string, val: number}[] = []
+
+  data.forEach(dataset => {
+    const temp = convertTemperatureRaw(TemperatureUnit.C, dataset.val)
+    celciusData.push({val: temp, arg: dataset.arg})
+  })
+
+  return celciusData
+}
 
 const BarChart = ({ selectedIndex }: { selectedIndex: number }) => {
   const weatherData = useSelector(
-    (state: any) => state.weatherData.weatherData
+    (state: State) => state.weatherData.weatherData
   );
   const temperatureGroupedByDay = useSelector(
-    (state: any) => state.weatherData.temperatureGroupedByDay
+    (state: State) => state.weatherData.temperatureGroupedByDay
+  );
+  const unit = useSelector(
+    (state: State) => state.temperatureUnit.unit
   );
 
   const { phoneScreens } = useResponsiveChecks();
@@ -24,7 +42,7 @@ const BarChart = ({ selectedIndex }: { selectedIndex: number }) => {
       <Box style={{ margin: "50px 0" }}>
         <Chart
           dataSource={
-            temperatureGroupedByDay[dayOfYear(weatherData[selectedIndex]?.dt)]
+            computeBarCharTemperatures(temperatureGroupedByDay[dayOfYear(weatherData[selectedIndex]?.dt)], unit) as DataSourceOptions
           }
         >
           <Series type="bar" color={blue[200]} />

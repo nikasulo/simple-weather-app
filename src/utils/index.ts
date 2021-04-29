@@ -65,6 +65,17 @@ export const convertTemperature = (
   return `${newTemperature}°C`;
 };
 
+export const convertTemperatureRaw = (
+  unit: TemperatureUnit,
+  temperature: number
+): number => {
+  if (unit === TemperatureUnit.F) return temperature;
+
+  const newTemperature = ((temperature - 32) * (5 / 9)).toFixed(2);
+
+  return parseInt(newTemperature);
+};
+
 export const dayOfYear = (date: number) => {
   return moment(date * 1000).dayOfYear();
 };

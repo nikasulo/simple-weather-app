@@ -1,6 +1,6 @@
 import { act } from "@testing-library/react-hooks";
 import * as Hooks from "hooks";
-import { useApp } from "hooks/useApp";
+import { useApp, useAppObject } from "hooks/useApp";
 import { renderHook, waitFor } from "test/utils";
 
 jest.mock("@material-ui/core");
@@ -8,7 +8,7 @@ jest.mock("@material-ui/core");
 describe("useApp hook", () => {
   describe("handleCardSelection", () => {
     it("sets selected index", () => {
-      const { result } = renderHook<useApp>(() => useApp(9));
+      const { result } = renderHook<useAppObject>(() => useApp(9));
       act(() => {
         result.current.handleCardSelection(2);
       });
@@ -19,7 +19,7 @@ describe("useApp hook", () => {
 
   describe("handleRightArrow", () => {
     it("increments the currentStartIndex", () => {
-      const { result } = renderHook<useApp>(() => useApp(9));
+      const { result } = renderHook<useAppObject>(() => useApp(9));
       const oldStartIndex = result.current.currentStartIndex;
       act(() => {
         result.current.handleRightArrow();
@@ -29,7 +29,7 @@ describe("useApp hook", () => {
     });
 
     it("does not increment if we are at the end of the data list", () => {
-      const { result } = renderHook<useApp>(() => useApp(1));
+      const { result } = renderHook<useAppObject>(() => useApp(1));
 
       const oldStartIndex = result.current.currentStartIndex;
 
@@ -43,7 +43,7 @@ describe("useApp hook", () => {
 
   describe("handleLeftArrow", () => {
     it("decrements the currentStartIndex", () => {
-      const { result } = renderHook<useApp>(() => useApp(9));
+      const { result } = renderHook<useAppObject>(() => useApp(9));
       act(() => {
         result.current.handleRightArrow();
       });
@@ -56,7 +56,7 @@ describe("useApp hook", () => {
     });
 
     it("does not increment if we are at the end of the data list", () => {
-      const { result } = renderHook<useApp>(() => useApp(1));
+      const { result } = renderHook<useAppObject>(() => useApp(1));
 
       const oldStartIndex = result.current.currentStartIndex;
 
@@ -74,7 +74,7 @@ describe("useApp hook", () => {
     });
 
     test("it responds to phone and tablet screens", async () => {
-      const { result, rerender } = renderHook<useApp>(() => useApp(9));
+      const { result, rerender } = renderHook<useAppObject>(() => useApp(9));
 
       expect(result.current.upperLimitOfCards).toBe(3);
 
