@@ -45,6 +45,7 @@ const WeatherCardList = ({
             selected={index === selectedIndex}
             onClick={() => handleClick(index)}
             data={data}
+            key={data.dt}
           />
         );
       })}
