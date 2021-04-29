@@ -4,12 +4,12 @@ import store from "redux/store/store";
 import { groupHourlyDataByDay } from "utils";
 
 const axiosInstance = axios.create({
-  baseURL: `${process.env.REACT_APP_API_URL}`,
+  baseURL: 'https://api.openweathermap.org/data/2.5',
 });
 
 export const getData = () => {
   return axiosInstance
-    .get(`${process.env.REACT_APP_DAILY_DATA_ENDPOINT}${process.env.REACT_APP_ID}`)
+    .get(`/onecall?lat=48.1351&lon=11.5820&exclude=current,minutely,alerts&appid=${process.env.REACT_APP_ID}`)
     .then(async (res) => {
       const { daily, hourly } = res.data;
       store.dispatch(setWeatherData(daily));

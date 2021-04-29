@@ -13,10 +13,11 @@ import WeatherCardList from "components/WeatherCardList";
 import TemperatureControls from "components/TemperatureControls";
 import BarChart from "components/BarChart";
 import { useApp } from "hooks/useApp";
+import { State } from "types";
 
 const App = () => {
   const weatherData = useSelector(
-    (state: any) => state.weatherData.weatherData
+    (state: State) => state.weatherData.weatherData
   );
 
   const {
