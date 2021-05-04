@@ -55,7 +55,7 @@ const styles = () =>
 
     dayInformation: {
       backgroundColor: blue[100],
-      maxWidth: "90px",
+      minWidth: "90px",
       borderRadius: 4,
       display: "flex",
       margin: 0,
